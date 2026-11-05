@@ -1,0 +1,44 @@
+---
+title: "Classifying Harmful Algal Bloom Public Health Actions Using Natural Language Processing"
+author: "Melannie Moreno Rolon"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    code_folding: hide
+    theme: flatly
+  word_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 9,
+  fig.height = 6
+)
+```
+
+# Project Overview
+
+## Research Question
+
+Can environmental monitoring text predict whether a public health action was taken during a harmful algal bloom (HAB) event?
+
+California HAB bulletins contain unstructured descriptions of bloom conditions, phytoplankton observations, toxin concentrations, marine wildlife impacts, shellfish risk, and public health communication. I use these bulletins to build a text-classification dataset and compare Naive Bayes, Lasso logistic regression, and Random Forest models.
+
+## Data Source and Format
+
+The source data are HTML pages from the [SCCOOS California HAB Bulletin Archive](https://sccoos.org/archive-ca-hab-bulletins/). The original source is unstructured narrative text. I scrape the bulletin pages, convert each bulletin into smaller text segments, and place the text and metadata in a tabular data frame.
+
+The initial scraped corpus has one row per bulletin. The modeling dataset has one row per HAB-relevant text segment and includes the bulletin URL, date information inferred from the title, cleaned predictor text, and a binary public-health-action label.
+
+## Data Access & Cleaning
+
+I use helper functions to clean text, read webpages, and infer dates from bulletin titles and URLs. 
+
